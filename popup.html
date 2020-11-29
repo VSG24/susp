@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+		button {
+			width: 100%;
+			outline: none;
+			padding: .7rem 0;
+			cursor: pointer;
+		}
+
+		.save-msg {
+			margin-top: .5rem;
+			background: #87d687;
+			padding: .2rem;
+			border-radius: .2rem;
+			text-align: center;
+			display: none;
+		}
+
+		.save-msg p {
+			margin: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<label for="allowed_country_code">Allowed country:</label>
+	<select id="allowed_country_code">
+		<option>NL</option>
+		<option>DE</option>
+		<option>FR</option>
+		<option>UK</option>
+		<option>CH</option>
+		<option>RU</option>
+		<option>US</option>
+		<option>IR</option>
+	</select>
+	<hr>
+	<label for="site_domain">Site domain:</label>
+	<input id="site_domain" type="text">
+	<hr>
+	<button id="save">Save</button>
+	<div class="save-msg">
+		<p>New settings saved!</p>
+	</div>
+
+	<script src="popup.js"></script>
+</body>
+
+</html>
