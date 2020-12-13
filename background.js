@@ -1,5 +1,6 @@
 var allowedCountryCode;
 var siteDomain;
+var active;
 var intervalEnabled = true;
 
 var latestClientCountryCode;
@@ -18,10 +19,16 @@ var blockEvent = function() {
 function loadOptions() {
 	chrome.storage.sync.get({
 		allowedCountryCode: '',
-		siteDomain: ''
+		siteDomain: '',
+		active: ''
 	}, function(items) {
 		allowedCountryCode = items.allowedCountryCode;
 		siteDomain = items.siteDomain;
+		active = items.active;
+
+		blockEvent = function() {
+			return {cancel: active};
+		};
 
 		chrome.webRequest.onBeforeRequest.removeListener(
 			blockEvent
@@ -108,6 +115,9 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 });
 
 function checkAndExecuteScriptForTab(tab, forceIPCheck = false) {
+	if(!active) {
+		return;
+	}
 	let domain = extractRootDomain(tab.url);
 	if(domain.indexOf(`${siteDomain}`) !== -1) {
 		if(forceIPCheck === true) {
